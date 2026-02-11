@@ -4,14 +4,13 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "kastrov/devopsexamapp:latest"
+        DOCKER_IMAGE = "pranadock/devopsexamapp:latest"
     }
 
     stages {
         stage('Git Checkout') {
             steps {
-                git url: 'https://github.com/KastroVKiran/devops-exam-app.git', 
-                    branch: 'master'
+                git url: 'https://github.com/parameswar1-hub/devops-exam-app.git', branch: 'master'
             }
         }
 
@@ -27,7 +26,7 @@ pipeline {
             steps {
                 dir('backend') {
                     script {
-                        withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker') {
+                        withDockerRegistry(credentialsId: 'docker-creds') {
                             sh "docker build -t ${DOCKER_IMAGE} ."
                         }
                     }
@@ -98,14 +97,13 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "kastrov/devopsexamapp:latest"
+        DOCKER_IMAGE = "pranadock/devopsexamapp3:latest"
     }
 
     stages {
         stage('Git Checkout') {
             steps {
-                git url: 'https://github.com/KastroVKiran/devops-exam-app.git', 
-                    branch: 'master'
+                git url: 'https://github.com/parameswar1-hub/devops-exam-app.git', branch: 'master'
             }
         }
 
@@ -121,7 +119,7 @@ pipeline {
             steps {
                 dir('backend') {
                     script {
-                        withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker') {
+                        withDockerRegistry(credentialsId: 'docker-creds') {
                             sh "docker build -t ${DOCKER_IMAGE} ."
                         }
                     }
@@ -133,7 +131,7 @@ pipeline {
         stage('Push to Docker Hub') {
             steps {
                 script {
-                    withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker') {
+                    withDockerRegistry(credentialsId: 'docker-creds') {
                         sh """
                         docker tag ${DOCKER_IMAGE} ${DOCKER_IMAGE}
                         docker push ${DOCKER_IMAGE}
@@ -206,9 +204,9 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "kastrov/devopsexamapp:latest"
+        DOCKER_IMAGE = "pranadock/devopsexamapp3:latest"
         EKS_CLUSTER = "devopsapp"
-        K8S_NAMESPACE = "devopsexamapp"
+        K8S_NAMESPACE = "devopsexamapp3"
         AWS_REGION = "us-west-2"  // Update to your region
     }
 
